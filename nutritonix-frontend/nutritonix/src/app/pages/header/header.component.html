@@ -1,0 +1,24 @@
+<nav class="navbar">
+    <div class="logo">
+      <span>Nutritionix</span>
+    </div>
+  
+    <ul class="nav-links" *ngIf="isLoggedIn(); else guestLinks">
+        <li><a routerLink="/dashboard" title="Dashboard"><i class="fas fa-home"></i></a></li>
+        <li><a routerLink="/foods" title="Foods"><i class="fas fa-utensils"></i></a></li>
+        <li><a routerLink="/wishlist" title="Wishlist"><i class="fas fa-heart"></i></a></li>
+        <li><a routerLink="/exercise" title="Exercise"><i class="fas fa-dumbbell"></i></a></li>
+        <li><a routerLink="/about" routerLinkActive="active"><i class="fas fa-info-circle"></i></a></li>
+        <li><a (click)="logout()" title="Logout"><i class="fas fa-sign-out-alt"></i></a></li>
+      </ul>
+
+  
+    <ng-template #guestLinks>
+      <ul class="nav-links">
+        <li><a routerLink="/login" routerLinkActive="active"><i class="fas fa-sign-in-alt"></i></a></li>
+        <li><a routerLink="/register" routerLinkActive="active"><i class="fas fa-user-plus"></i></a></li>
+        <li><a routerLink="/about" routerLinkActive="active"><i class="fas fa-info-circle"></i></a></li>
+      </ul>
+    </ng-template>
+  </nav>
+  

@@ -1,0 +1,39 @@
+<div class="exercise-container">
+    <h2><i class="fas fa-running"></i> Check Your Exercise Calories</h2>
+  
+    <form [formGroup]="exerciseForm" (ngSubmit)="onSubmit()" class="exercise-form">
+      <input 
+        type="text" 
+        placeholder="e.g. 30 minutes yoga or 1 hour cycling" 
+        formControlName="query"
+        class="exercise-input" 
+      />
+      <button 
+        type="submit" 
+        [disabled]="exerciseForm.invalid || loading" 
+        class="exercise-btn">
+        {{ loading ? 'Processing...' : 'Get Info' }}
+      </button>
+    </form>
+  
+    <div *ngIf="loading" class="loading">
+      <i class="fas fa-spinner fa-spin"></i> Fetching data...
+    </div>
+  
+    <div *ngIf="exercises.length > 0" class="exercise-results">
+      <h3><i class="fas fa-info-circle"></i> Exercise Details</h3>
+      
+      <div class="exercise-grid">
+        <div *ngFor="let exercise of exercises" class="exercise-card">
+          <img [src]="exercise.photo.thumb" alt="exercise image" />
+          <div class="details">
+            <h4>{{ exercise.name | titlecase }}</h4>
+            <p><strong>Duration:</strong> {{ exercise.duration_min }} min</p>
+            <p><strong>Calories:</strong> {{ exercise.nf_calories }} kcal</p>
+            <p><strong>MET:</strong> {{ exercise.met }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,21 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: NUTRITION-SERVICE
+  config:
+    import: configserver:http://localhost:8099
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true      # Ensures registration with IP instead of hostname
+    instance-id: ${spring.application.name}:${server.port}   # Custom instance ID to avoid conflicts
+    lease-renewal-interval-in-seconds: 30  # Improves registration stability
+    lease-expiration-duration-in-seconds: 90

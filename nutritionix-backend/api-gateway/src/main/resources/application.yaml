@@ -1,0 +1,72 @@
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOriginPatterns: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            allowCredentials: true
+      routes:
+        - id: nutrition-service
+          uri: lb://NUTRITION-SERVICE
+          predicates:
+            - Path=/nutrition/**
+          filters:
+            - AuthenticationFilter
+
+        - id: wishlist-service
+          uri: lb://WISHLIST-SERVICE
+          predicates:
+            - Path=/wishlist/**
+          filters:
+            - AuthenticationFilter
+
+        - id: auth-service
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/auth/**
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user/**
+          filters:
+            - AuthenticationFilter
+          args:
+            excludePaths:
+              - /user/swagger-ui/**
+              - /user/v3/api-docs/**
+              - /user/webjars/**
+              - /swagger-ui/**
+
+
+
+  application:
+    name: NUTRITONIX-GATEWAY
+server:
+  port: 8080
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}   # Custom instance ID to avoid conflicts
+    lease-renewal-interval-in-seconds: 30  # Improves registration stability
+    lease-expiration-duration-in-seconds: 90
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.security: DEBUG
+springdoc:
+  swagger-ui:
+    urls:
+      - name: User Service
+        url: /user/v3/api-docs   # Corrected path to match route path
+      - name: Nutrition Service
+        url: /nutrition/v3/api-docs  # Corrected path
+      - name: Wishlist Service
+        url: /wishlist/v3/api-docs  # Corrected path
+      - name: Auth Service
+        url: /auth/v3/api-docs

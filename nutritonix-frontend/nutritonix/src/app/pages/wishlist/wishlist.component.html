@@ -1,0 +1,23 @@
+<div class="wishlist-container" *ngIf="wishlistItems.length > 0; else empty">
+    <h2>Your Wishlist</h2>
+    
+    <div class="wishlist-grid">
+      <div class="wishlist-card" *ngFor="let item of wishlistItems">
+        <img [src]="item.imageUrl || 'assets/default-food-image.jpg'" alt="{{ item.foodName }}" class="wishlist-img" />
+        
+        <div class="wishlist-info">
+          <h3>{{ item.foodName }}</h3>
+          <p><strong>Serving:</strong> {{ item.servingQty }} {{ item.servingUnit }}</p>
+          <button (click)="removeItem(item.tagId)" class="btn-remove">Remove</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #empty>
+    <div class="empty-wishlist">
+      <i class="fas fa-heart-broken"></i>
+      <p>Your wishlist is currently empty.</p>
+    </div>
+  </ng-template>
+  

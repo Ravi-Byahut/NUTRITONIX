@@ -1,0 +1,47 @@
+<div class="register-container">
+  <div class="register-card">
+    <h2><i class="fas fa-user-plus"></i> Create an Account</h2>
+
+    <form (ngSubmit)="onSubmit()" [formGroup]="registerForm" novalidate>
+
+      <div class="input-group">
+        <label for="name"><i class="fas fa-user"></i> Full Name</label>
+        <input type="text" id="name" formControlName="name" placeholder="Enter your name" />
+        <div *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched" class="error-message">
+          <p *ngIf="registerForm.get('name')?.hasError('required')">Name is required.</p>
+          <p *ngIf="registerForm.get('name')?.hasError('minlength')">Minimum 3 characters required.</p>
+          <p *ngIf="registerForm.get('name')?.hasError('pattern')">Only alphabets and spaces allowed.</p>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="email"><i class="fas fa-envelope"></i> Email</label>
+        <input type="email" id="email" formControlName="email" placeholder="Enter your email" />
+        <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error-message">
+          <p *ngIf="registerForm.get('email')?.hasError('required')">Email is required.</p>
+          <p *ngIf="registerForm.get('email')?.hasError('email')">Invalid email format.</p>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="password"><i class="fas fa-key"></i> Password</label>
+        <input type="password" id="password" formControlName="password" placeholder="Enter your password" />
+        <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="error-message">
+          <p *ngIf="registerForm.get('password')?.hasError('required')">Password is required.</p>
+          <p *ngIf="registerForm.get('password')?.hasError('minlength')">Minimum 6 characters required.</p>
+          <p *ngIf="registerForm.get('password')?.hasError('pattern')">
+            Must contain uppercase, lowercase, number, and special character.
+          </p>
+        </div>
+      </div>
+
+      <button type="submit" class="register-btn" [disabled]="registerForm.invalid">
+        <i class="fas fa-user-plus"></i> Register
+      </button>
+    </form>
+
+    <p class="login-link">
+      Already have an account? <a routerLink="/login">Login here</a>
+    </p>
+  </div>
+</div>

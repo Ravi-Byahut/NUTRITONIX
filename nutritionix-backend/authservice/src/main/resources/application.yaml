@@ -1,0 +1,22 @@
+spring:
+    application:
+        name: AUTH-SERVICE
+    config:
+        import: optional:configserver:http://localhost:8099 # Remove if not required
+    main:
+        allow-bean-definition-overriding: true
+server:
+    port: 9898
+springdoc:
+    api-docs:
+        path: /v3/api-docs
+eureka:
+    client:
+        service-url:
+            defaultZone: http://localhost:8761/eureka/
+    instance:
+        prefer-ip-address: true      # Ensures registration with IP instead of hostname
+        instance-id: ${spring.application.name}:${server.port}   # Custom instance ID to avoid conflicts
+        lease-renewal-interval-in-seconds: 30  # Improves registration stability
+        lease-expiration-duration-in-seconds: 90
+

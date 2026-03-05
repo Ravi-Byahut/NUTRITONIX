@@ -1,0 +1,36 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2><i class="fas fa-lock"></i> Login to Your Account</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+      
+      <div class="input-group">
+        <label for="email"><i class="fas fa-envelope"></i> Email</label>
+        <input id="email" formControlName="email" type="email" placeholder="Enter your email" />
+        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error">
+          Email is required and must be valid.
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="password"><i class="fas fa-key"></i> Password</label>
+        <input id="password" formControlName="password" type="password" placeholder="Enter your password" />
+        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error">
+          <p *ngIf="loginForm.get('password')?.hasError('required')">Password is required.</p>
+          <p *ngIf="loginForm.get('password')?.hasError('minlength')">Minimum 6 characters required.</p>
+          <p *ngIf="loginForm.get('password')?.hasError('pattern')">
+            Must include uppercase, lowercase, number & special character.
+          </p>
+        </div>
+      </div>
+
+      <button type="submit" class="login-btn" [disabled]="loginForm.invalid">
+        <i class="fas fa-sign-in-alt"></i> Login
+      </button>
+
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+    </form>
+  </div>
+</div>
