@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID, Inject } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -11,10 +13,13 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class HeaderComponent {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {}
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token'); 
+    if (isPlatformBrowser(this.platformId)) {
+      return !!localStorage.getItem('token'); // your key here
+    }
+    return false;
   }
 
   logout(): void {
