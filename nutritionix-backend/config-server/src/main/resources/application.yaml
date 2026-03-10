@@ -7,7 +7,7 @@ spring:
         git:
           uri: https://gitlab.stackroute.in/19794_ravi-22/config-properties.git
           default-label: main
-          username: ravikumarbyahut@virtusa.com  # Replace with your GitLab username (if required)
+          username: ravi_byahut # Replace with your GitLab username (if required)
           password: ${SR_GIT_PSWD}  # Ensure SR_GIT_PSWD is set as an environment variable
 server:
   port: 8099
